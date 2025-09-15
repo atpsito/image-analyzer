@@ -1,9 +1,7 @@
+import { Home } from "./components/Home/Home";
+
 function App() {
-  return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <h1>Image Analyzer</h1>
-    </div>
-  );
+  return <Home />;
 }
 
 export default App;
