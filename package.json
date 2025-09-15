@@ -1,17 +1,21 @@
 {
-    "name": "image-analyzer",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "scripts": {
-      "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "keywords": [],
-    "author": "Alexander Tigselema",
-    "license": "ISC",
-    "packageManager": "pnpm@10.15.1",
-    "engines": {
-      "node": ">=20.11.0"
-    }
+  "name": "image-analyzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "turbo lint",
+    "check-types": "turbo check-types"
+  },
+  "keywords": [],
+  "author": "Alexander Tigselema",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "dependencies": {
+    "turbo": "^2.5.6"
   }
-  
+}
