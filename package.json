@@ -16,6 +16,7 @@
     "node": ">=20.11.0"
   },
   "dependencies": {
+    "prettier": "^3.6.2",
     "turbo": "^2.5.6"
   }
 }
