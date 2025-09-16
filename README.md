@@ -2,6 +2,27 @@
 
 Una aplicación full-stack para el análisis inteligente de imágenes utilizando inteligencia artificial. El proyecto permite subir imágenes y obtener etiquetas descriptivas con niveles de confianza utilizando el modelo Gemini de Google.
 
+## 🚀 Inicio Rápido con Docker
+
+```bash
+# 1. Clonar el repositorio
+git clone <url-del-repositorio>
+cd image-analyzer
+
+# 2. Crear archivo de variables de entorno para el backend
+echo "GEMINI_API_KEY=tu_api_key_aqui" > apps/backend/.env
+
+# 3. Crear archivo de variables de entorno para el frontend (opcional)
+echo "VITE_API_URL=http://localhost:3000" > apps/frontend/.env
+
+# 4. Levantar el proyecto
+docker-compose up --build
+```
+
+¡Listo! La aplicación estará disponible en http://localhost:5173
+
+> **Nota:** Necesitas obtener una API Key de Google Gemini AI. Ver la sección [Obtener API Key](#obtener-api-key-de-google-gemini) para más detalles.
+
 ## 🚀 Tecnologías Utilizadas
 
 ### Backend
@@ -26,8 +47,14 @@ Una aplicación full-stack para el análisis inteligente de imágenes utilizando
 
 ## 📋 Prerrequisitos
 
+### Para desarrollo local:
 - Node.js v20.11.0 o superior
 - pnpm v10.15.1 o superior
+- Una API Key de Google Gemini AI
+
+### Para Docker:
+- Docker v20.10.0 o superior
+- Docker Compose v2.0.0 o superior
 - Una API Key de Google Gemini AI
 
 ## 🛠️ Instalación y Configuración
@@ -39,25 +66,25 @@ git clone <url-del-repositorio>
 cd image-analyzer
 ```
 
-### 2. Instalar dependencias
+## 🐳 Configuración con Docker (Recomendado)
 
-```bash
-# Instalar todas las dependencias del monorepo
-pnpm install
-```
+### Configurar variables de entorno
 
-### 3. Configurar variables de entorno
+Antes de levantar el proyecto con Docker, necesitas crear los archivos de configuración de variables de entorno:
 
 #### Backend (.env)
 
 Crea un archivo `.env` en la carpeta `apps/backend/` con la siguiente configuración:
 
 ```env
-# API Key de Google Gemini AI
+# API Key de Google Gemini AI (OBLIGATORIO)
 GEMINI_API_KEY=tu_api_key_aqui
 
 # Puerto del servidor (opcional, por defecto 3000)
 PORT=3000
+
+# Entorno de ejecución (opcional, por defecto development)
+NODE_ENV=production
 ```
 
 #### Frontend (.env)
@@ -69,16 +96,55 @@ Crea un archivo `.env` en la carpeta `apps/frontend/` con la siguiente configura
 VITE_API_URL=http://localhost:3000
 ```
 
-### 4. Obtener API Key de Google Gemini
+### Obtener API Key de Google Gemini
 
 1. Ve a [Google AI Studio](https://aistudio.google.com/app/apikey)
 2. Inicia sesión con tu cuenta de Google
 3. Crea una nueva API Key
 4. Copia la clave y pégala en el archivo `.env` del backend
 
+### Levantar el proyecto con Docker
+
+Una vez configuradas las variables de entorno, puedes levantar todo el proyecto con un solo comando:
+
+```bash
+# Construir y levantar todos los servicios
+docker-compose up --build
+
+# O ejecutar en segundo plano
+docker-compose up --build -d
+```
+## 💻 Desarrollo Local (Alternativo)
+
+Si prefieres ejecutar el proyecto localmente sin Docker:
+
+### 2. Instalar dependencias
+
+```bash
+# Instalar todas las dependencias del monorepo
+pnpm install
+```
+
+### 3. Configurar variables de entorno
+
+Sigue los mismos pasos de configuración de variables de entorno mencionados en la sección de Docker.
+
 ## 🚀 Ejecutar el proyecto
 
-### Desarrollo (Recomendado)
+### Con Docker (Recomendado)
+
+```bash
+# Levantar todos los servicios
+docker-compose up --build
+
+# Levantar en segundo plano
+docker-compose up --build -d
+
+# Verificar que los servicios estén corriendo
+docker-compose ps
+```
+
+### Desarrollo Local
 
 #### Opción 1: Ejecutar todo el proyecto
 ```bash
@@ -100,7 +166,7 @@ cd apps/frontend
 pnpm dev
 ```
 
-### Producción
+### Producción Local
 
 ```bash
 # Construir todos los proyectos
@@ -117,12 +183,21 @@ pnpm start:prod
 image-analyzer/
 ├── apps/
 │   ├── backend/          # API NestJS
+│   │   ├── .env          # Variables de entorno (crear manualmente)
+│   │   ├── .dockerignore # Archivos ignorados en Docker
+│   │   └── ...
 │   └── frontend/         # Aplicación React
+│       ├── .env          # Variables de entorno (crear manualmente)
+│       ├── .dockerignore # Archivos ignorados en Docker
+│       └── ...
 ├── packages/
 │   └── types/           # Tipos compartidos
-├── package.json         # Configuración del monorepo
-├── pnpm-workspace.yaml  # Configuración de workspace
-└── turbo.json          # Configuración de Turbo
+├── docker-compose.yml   # Configuración de servicios Docker
+├── Dockerfile          # Configuración multi-stage para Docker
+├── .dockerignore       # Archivos ignorados en Docker
+├── package.json        # Configuración del monorepo
+├── pnpm-workspace.yaml # Configuración de workspace
+└── turbo.json         # Configuración de Turbo
 ```
 
 ## 🔧 Scripts Disponibles
@@ -145,8 +220,36 @@ image-analyzer/
 
 ## 🌐 Acceso a la Aplicación
 
+### Con Docker:
 - **Frontend:** http://localhost:5173
 - **Backend API:** http://localhost:3000
+
+### Desarrollo Local:
+- **Frontend:** http://localhost:5173
+- **Backend API:** http://localhost:3000
+
+## ⚙️ Variables de Entorno Detalladas
+
+### Backend (`apps/backend/.env`)
+
+| Variable | Descripción | Obligatorio | Valor por defecto |
+|----------|-------------|-------------|-------------------|
+| `GEMINI_API_KEY` | API Key de Google Gemini AI para análisis de imágenes | ✅ Sí | - |
+| `PORT` | Puerto donde correrá el servidor backend | ❌ No | 3000 |
+| `NODE_ENV` | Entorno de ejecución (development/production) | ❌ No | development |
+
+### Frontend (`apps/frontend/.env`)
+
+| Variable | Descripción | Obligatorio | Valor por defecto |
+|----------|-------------|-------------|-------------------|
+| `VITE_API_URL` | URL base del backend para las peticiones API | ❌ No | http://localhost:3000 |
+
+### 🔐 Seguridad de Variables de Entorno
+
+**Importante:** 
+- Los archivos `.env` están incluidos en `.dockerignore` y `.gitignore` para proteger tus claves
+- Nunca commitees archivos `.env` al repositorio
+- Para producción, considera usar un gestor de secretos como Docker Secrets o variables de entorno del sistema
 
 ## 📝 Uso
 
@@ -154,14 +257,6 @@ image-analyzer/
 2. Arrastra y suelta una imagen o haz clic para seleccionar un archivo
 3. La imagen se enviará al backend para análisis
 4. Recibirás etiquetas descriptivas con niveles de confianza
-
-## 🤝 Contribución
-
-1. Fork el proyecto
-2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva funcionalidad'`)
-4. Push a la rama (`git push origin feature/nueva-funcionalidad`)
-5. Abre un Pull Request
 
 ## 📄 Licencia
 
@@ -171,6 +266,3 @@ Este proyecto está bajo la Licencia ISC. Ver el archivo `LICENSE` para más det
 
 **Alexander Tigselema**
 
----
-
-¿Necesitas ayuda? Abre un issue en el repositorio o contacta al desarrollador.
