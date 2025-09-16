@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "turbo lint",
     "check-types": "turbo check-types",
-    "dev": "pnpm run -r --parallel dev"
+    "dev": "pnpm run -r --parallel dev",
+    "build": "turbo build"
   },
   "keywords": [],
   "author": "Alexander Tigselema",

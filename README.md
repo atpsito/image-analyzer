@@ -84,7 +84,7 @@ GEMINI_API_KEY=tu_api_key_aqui
 PORT=3000
 
 # Entorno de ejecución (opcional, por defecto development)
-NODE_ENV=production
+NODE_ENV=development
 ```
 
 #### Frontend (.env)
@@ -157,7 +157,7 @@ pnpm dev
 **Backend:**
 ```bash
 cd apps/backend
-pnpm start:dev
+pnpm dev
 ```
 
 **Frontend:**
