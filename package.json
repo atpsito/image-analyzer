@@ -1,0 +1,24 @@
+{
+  "name": "image-analyzer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "turbo lint",
+    "check-types": "turbo check-types",
+    "dev": "pnpm run -r --parallel dev",
+    "build": "turbo build"
+  },
+  "keywords": [],
+  "author": "Alexander Tigselema",
+  "license": "ISC",
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=20.11.0"
+  },
+  "dependencies": {
+    "prettier": "^3.6.2",
+    "turbo": "^2.5.6"
+  }
+}
